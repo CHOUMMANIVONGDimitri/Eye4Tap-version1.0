@@ -3,7 +3,7 @@ header {
   padding: 10px;
 }
 
-.container {
+body {
   display: grid;
   grid-template-rows: minmax(20px, 60px) max-content minmax(20px, 60px);
   gap: 0px 0px;
@@ -13,14 +13,15 @@ header {
   width: 100%;
   height: 100%;
 }
-.header {
+
+header {
   grid-area: 1 / 1 / 2 / 2;
 }
-.content {
+main {
   align-self: start;
   grid-area: 2 / 1 / 3 / 2;
 }
-.footer {
+footer {
   background-color: var(--main-bg-color);
   padding: 10px;
   justify-self: stretch;

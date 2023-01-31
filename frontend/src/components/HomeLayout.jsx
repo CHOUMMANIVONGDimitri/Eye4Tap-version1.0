@@ -20,14 +20,14 @@ export default function HomeLayout() {
   });
 
   return (
-    <main className="container">
-      <header className="header">
+    <>
+      <header>
         <AppBar menu={menu} />
       </header>
-      <div className="content">{outlet}</div>
-      <footer className="footer">
+      <main>{outlet}</main>
+      <footer>
         <FooterBar />
       </footer>
-    </main>
+    </>
   );
 }
