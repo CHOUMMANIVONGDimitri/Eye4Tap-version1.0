@@ -1,5 +1,6 @@
 import { React, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import ButtonInterface from "@components/ButtonInterFace";
 import api from "../../services/api";
 import { useAuth } from "../../contexts/useAuth";
 
@@ -28,7 +29,6 @@ export default function LoginPage() {
           if (reslogin.status === 200) {
             const jsonadmin = await reslogin.json();
             login({
-              admin: jsonadmin.admin,
               email,
               id: jsonadmin.id,
             });
@@ -44,91 +44,96 @@ export default function LoginPage() {
   useEffect(() => {}, [setErrotConnect]);
 
   return errorConnect ? (
-    <div
-      id="popup-modal"
-      tabIndex="-1"
-      className="fixed top-0 left-0 right-0 z-50 p-4 h-full overflow-x-hidden overflow-y-auto flex flex-col justify-center items-center backdrop-blur"
-    >
-      <div className="w-full max-w-md md:h-auto">
-        <div className="relative bg-white rounded-lg shadow">
-          <div className="p-6 text-center">
-            <h3 className="mb-5 text-lg font-normal text-gray-500">Er</h3>
-            <button
-              data-modal-hide="popup-modal"
-              type="button"
-              className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-              onClick={() => {
-                setErrotConnect(false);
-              }}
-            >
-              LogIn
-            </button>
+    <>
+      <div className="bg-[#2F4555] h-screen" />
+      <div
+        id="popup-modal"
+        tabIndex="-1"
+        className="fixed top-0 left-0 right-0 z-50 p-4 h-full overflow-x-hidden overflow-y-auto flex flex-col justify-center items-center backdrop-blur"
+      >
+        <div className="w-full max-w-md md:h-auto">
+          <div className="animate-goDown relative bg-[#2F4555] rounded-lg shadow border-4">
+            <div className="p-12 text-center flex flex-col gap-8 items-center">
+              <h3 className="mb-5 text-4xl font-extrabold text-white uppercase">
+                Error Connexion
+              </h3>
+              <ButtonInterface
+                name="Fermer"
+                method={() => setErrotConnect(false)}
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   ) : (
-    <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-md sm:p-6 md:p-8">
-      <div className="login">
-        <h1 className="text-xl font-medium text-gray-900">Log In</h1>
-        <form className="space-y-6" onSubmit={handleSubmit}>
-          <div>
-            <label
-              htmlFor="email"
-              className="block mb-2 text-sm font-medium text-gray-900"
+    <div className="wrapper w-full h-full bg-[#2F4555]">
+      <div className=" w-full h-screen flex justify-center items-center">
+        <div className="max-w-sm p-4 bg-[#2F4555] border-4 border-[#AF28EE] rounded-lg shadow-md sm:p-6 md:p-10">
+          <div className="">
+            <h1 className="-mt-20 mb-20 text-5xl text-white text-center font-extrabold">
+              EYE4TAP
+            </h1>
+          </div>
+
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <div>
+              <label
+                htmlFor="email"
+                className="uppercase block mb-2 text-sm font-extrabold md:text-3xl font-medium text-white"
+              >
+                Your email
+              </label>
+              <input
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                placeholder="Email"
+                required
+                id="email"
+                name="email"
+                type="email"
+                label="Email Address"
+                autoComplete="email"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="password"
+                className="uppercase block mb-2 text-sm font-extrabold md:text-3xl font-medium text-white"
+              >
+                Your password
+              </label>
+              <input
+                pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                placeholder="Password"
+                required
+                id="password"
+                name="password"
+                label="Password"
+                type="password"
+                autoComplete="current-password"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              />
+              <span className="text-rose-500 text-md">
+                Minimum 8 caracteres, une majuscule, une minuscule, un chiffre,
+                un caractère spécial.
+              </span>
+            </div>
+            <button
+              type="submit"
+              className="w-full text-white uppercase font-extrabold rounded-lg text-sm md:text-xl px-5 py-2.5 text-center border-2 hover:scale-125 transition ease-in duration-150"
             >
-              Your email
-            </label>
-            <input
-              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-              placeholder="Email"
-              required
-              id="email"
-              name="email"
-              type="email"
-              label="Email Address"
-              autoComplete="email"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            />
-            <span className="form__error">email erroné</span>
-          </div>
-          <div>
-            <label
-              htmlFor="password"
-              className="block mb-2 text-sm font-medium text-gray-900"
-            >
-              Your password
-            </label>
-            <input
-              pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-              placeholder="Password"
-              required
-              id="password"
-              name="password"
-              label="Password"
-              type="password"
-              autoComplete="current-password"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            />
-            <span className="text-rose-500 text-xs">
-              Minimum 8 caracteres, une majuscule, une minuscule, un chiffre, un
-              caractère spécial.
-            </span>
-          </div>
-          <button
-            type="submit"
-            className="w-full text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-          >
-            LogIn
-          </button>
-          <div className="text-sm font-medium text-gray-500">
-            Not registered?{" "}
-            <span href="#" className="text-blue-700 hover:underline">
-              {" "}
-              <Link to="/register">Don't have an account yet? Sign Up</Link>
-            </span>
-          </div>
-        </form>
+              LogIn
+            </button>
+            <div className="text-sm md:text-md font-medium text-gray-500">
+              Not registered?{" "}
+              <span href="#" className="text-blue-500 hover:underline">
+                {" "}
+                <Link to="/register">Don't have an account yet? Sign Up</Link>
+              </span>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

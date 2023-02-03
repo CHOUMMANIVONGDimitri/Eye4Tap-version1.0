@@ -32,7 +32,7 @@ const verifyPassword = (req, res) => {
         res
           .status(200)
           .cookie(process.env.NAME_COOKIE, `Bearer ${token}`, {
-            expires: new Date(Date.now() + 2 * 3600000), // cookie will be removed after 2 hours
+            expires: new Date(Date.now() + 10 * 3600000), // cookie will be removed after 2 hours
           })
           .json({ admin: req.user.admin, id: req.user.id });
       } else {

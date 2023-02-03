@@ -17,13 +17,13 @@ function LoginPage() {
       const password = inputPassword.value;
       const firstname = e.target.firstname.value;
       const lastname = e.target.lastname.value;
+      const pseudo = e.target.pseudo.value;
       const body = {
         firstname,
         lastname,
         email,
         password,
-        serviceId: null,
-        admin: 0,
+        pseudo,
       };
       const sendForm = async () => {
         const resRegister = await api.apipostmysql(
@@ -38,7 +38,6 @@ function LoginPage() {
           );
           console.warn(reslogin);
           login({
-            admin: 0,
             email,
           });
         }
@@ -53,23 +52,30 @@ function LoginPage() {
   };
 
   return (
-    <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-md sm:p-6 md:p-8">
-      <div className="register">
-        <h1 className="text-xl font-medium text-gray-900">Register</h1>
+    <div className="w-full h-full wrapper">
+      <div className="w-full my-28 mx-auto bg-[#2F4555] max-w-sm px-12 py-10 border-4 border-[#AF28EE]  rounded-lg shadow-md  text-white">
+        <div>
+          <h1 className="-mt-20 mb-20 text-5xl text-white text-center font-extrabold">
+            EYE4TAP
+          </h1>
+          <p className=" text-xl text-white text-center font-light uppercase">
+            create an account
+          </p>
+        </div>
 
         <form noValidate className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label
               htmlFor="firstname"
-              className="block mb-2 text-sm font-medium text-gray-900"
+              className="uppercase block mb-2 text-sm font-light md:text-xl text-white"
             >
-              Prénom
+              Firstname
             </label>
             <input
               required
               name="firstname"
               label="Firstname"
-              type="firstname"
+              type="text"
               id="firstname"
               autoComplete="current-firstname"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -78,15 +84,15 @@ function LoginPage() {
           <div>
             <label
               htmlFor="lastname"
-              className="block mb-2 text-sm font-medium text-gray-900"
+              className="uppercase block mb-2 text-sm font-light md:text-xl text-white"
             >
-              Nom de famille
+              Lastname
             </label>
             <input
               required
               name="lastname"
               label="Lastname"
-              type="lastname"
+              type="text"
               id="lastname"
               autoComplete="current-lastname"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -94,8 +100,25 @@ function LoginPage() {
           </div>
           <div>
             <label
+              htmlFor="pseudo"
+              className="uppercase block mb-2 text-sm font-light md:text-xl text-white"
+            >
+              Pseudo
+            </label>
+            <input
+              required
+              name="pseudo"
+              label="pseudo"
+              type="type"
+              id="pseudo"
+              autoComplete="current-lastname"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            />
+          </div>
+          <div>
+            <label
               htmlFor="email"
-              className="block mb-2 text-sm font-medium text-gray-900"
+              className="uppercase block mb-2 text-sm font-light md:text-xl text-white"
             >
               Email
             </label>
@@ -112,7 +135,7 @@ function LoginPage() {
           <div>
             <label
               htmlFor="password"
-              className="block mb-2 text-sm font-medium text-gray-900"
+              className="uppercase block mb-2 text-sm font-light md:text-xl text-white"
             >
               Password
             </label>
@@ -129,7 +152,7 @@ function LoginPage() {
           </div>
           <button
             type="submit"
-            className="w-full text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            className="w-full text-white uppercase font-extrabold rounded-lg text-sm md:text-xl px-5 py-2.5 text-center border-2 hover:scale-125 transition ease-in duration-150"
           >
             Register
           </button>

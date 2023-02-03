@@ -1,7 +1,3 @@
-import { useNavigate } from "react-router-dom";
-// eslint-disable-next-line import/no-cycle
-import { useAuth } from "../contexts/useAuth";
-
 function api() {
   let token;
   const checktoken = () => {

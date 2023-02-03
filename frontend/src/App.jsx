@@ -1,7 +1,6 @@
-import "./assets/css/App.css";
 import { useRoutes } from "react-router-dom";
 import { Suspense, useContext } from "react";
-import Loader from "@services/Loader";
+import Loader from "./services/Loader";
 import { FolderContext } from "./contexts/Folder";
 import ErrorPage from "./pages/Error";
 
@@ -17,7 +16,7 @@ function App() {
       childrenroutes = [
         ...childrenroutes,
         {
-          path: `${files.toLocaleLowerCase()}`,
+          path: `${files.toLocaleLowerCase().replace("home", "/")}`,
           element: (
             <Suspense fallback={<div>Loading...</div>}>
               <Loader foldername={`pages/${folder}`} filename={files} />
@@ -36,7 +35,9 @@ function App() {
           .replace("home", "")
           .replace("protected", "user")}`,
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={<p className="h-fit w-fit text-4xl">Loading...</p>}
+          >
             <Loader foldername="components" filename={`${folder}Layout`} />
           </Suspense>
         ),

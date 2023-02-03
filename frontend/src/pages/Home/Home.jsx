@@ -1,6 +1,7 @@
-import BasicPage from "../../components/container/BasicPage";
+// eslint-disable-next-line import/no-unresolved
+import HomePage from "@components/container/HomePage";
 
 function Home() {
-  return <BasicPage title="Basic Page" />;
+  return <HomePage title="EYE4TAP" />;
 }
 export default Home;
