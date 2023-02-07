@@ -1,6 +1,5 @@
 /* eslint-disable import/no-unresolved */
 import { React, useState, useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ButtonInterface from "@components/ButtonInterFace";
 import api from "../../services/api";
