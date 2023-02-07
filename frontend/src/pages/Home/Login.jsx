@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unresolved */
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 import { Link } from "react-router-dom";
 import ButtonInterface from "@components/ButtonInterFace";
 import api from "../../services/api";
@@ -7,7 +7,7 @@ import { useAuth } from "../../contexts/useAuth";
 
 export default function LoginPage() {
   const { login } = useAuth();
-  const [errorConnect, setErrotConnect] = useState(false);
+  const [errorConnect, setErrorConnect] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,18 +23,20 @@ export default function LoginPage() {
         const password = inputpassword.value;
         const body = { email, password };
         const sendForm = async () => {
-          const reslogin = await api.apipostmysql(
+          const response = await api.apipostmysql(
             `${import.meta.env.VITE_BACKEND_URL}/login`,
             body
           );
-          if (reslogin.status === 200) {
-            const jsonadmin = await reslogin.json();
+          if (response.status === 200) {
+            const logInfo = await response.json();
             login({
               email,
-              id: jsonadmin.id,
+              picture: logInfo.picture,
+              pseudo: logInfo.pseudo,
+              id: logInfo.id,
             });
           } else {
-            setErrotConnect(true);
+            setErrorConnect(true);
           }
         };
         sendForm();
@@ -42,7 +44,7 @@ export default function LoginPage() {
     }
   };
 
-  useEffect(() => {}, [setErrotConnect]);
+  // useEffect(() => {}, [setErrotConnect]);
 
   return errorConnect ? (
     <>
@@ -60,7 +62,7 @@ export default function LoginPage() {
               </h3>
               <ButtonInterface
                 name="Fermer"
-                method={() => setErrotConnect(false)}
+                method={() => setErrorConnect(false)}
               />
             </div>
           </div>

@@ -4,9 +4,10 @@ CREATE TABLE
         `lastname` varchar(45) NOT NULL,
         `firstname` varchar(45) NOT NULL,
         `email` varchar(254) NOT NULL UNIQUE KEY,
-        `password` varchar(255) NOT NULL,
+        `password` varchar(254) NOT NULL,
         `pseudo` varchar(45) NOT NULL,
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_general_ci COMMENT = 'Table utilisateurs';
+        `picture` varchar(254) NULL
+    );
 
 CREATE TABLE
     `score` (

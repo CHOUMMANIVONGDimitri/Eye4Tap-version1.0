@@ -6,6 +6,7 @@ import ButtonInterface from "@components/ButtonInterFace";
 import api from "../../services/api";
 import { useAuth } from "../../contexts/useAuth";
 import Spinner from "../../components/Spinner";
+import defaultPicture from "../../assets/picture/default-profile-picture.png";
 
 function ProfilUser() {
   const navigate = useNavigate();
@@ -13,11 +14,12 @@ function ProfilUser() {
   const [userLastName, setUserLastName] = useState();
   const [userEmail, setUserEmail] = useState();
   const [userPassword, setUserPassword] = useState("");
+  const [userPicture, setUserPicture] = useState("no picture");
   const [data, setData] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
   const [showInput, setShowInput] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
-  const { user, pictureProfile } = useAuth();
+  const { user } = useAuth();
 
   useEffect(() => {
     const getUserData = async () => {
@@ -28,10 +30,27 @@ function ProfilUser() {
       setUserEmail(getUser.email);
       setUserFirstName(getUser.firstname);
       setUserLastName(getUser.lastname);
+      setUserPicture(getUser.picture);
       setIsLoaded(true);
     };
     getUserData(); // lance la fonction getUserData
   }, [isLoaded]);
+
+  const getAnimeImg = () => {
+    const token = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith(import.meta.env.VITE_NAME_COOKIE))
+      ?.split("=Bearer%20")[1];
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_URL}/anime`, config)
+      .then((res) => {
+        setUserPicture(res.data.stuff[0].image);
+      })
+      .catch((err) => console.error(err));
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -40,7 +59,8 @@ function ProfilUser() {
       lastname: userLastName,
       email: userEmail,
       password: userPassword,
-      admin: user.admin,
+      pseudo: user.pseudo,
+      picture: userPicture,
     };
 
     const updateUserData = async () => {
@@ -66,10 +86,10 @@ function ProfilUser() {
           className="fixed top-0 left-0 right-0 z-50 p-4 h-full overflow-x-hidden overflow-y-auto flex flex-col justify-center items-center backdrop-blur"
         >
           <div className="w-full max-w-md md:h-auto">
-            <div className="relative bg-white rounded-lg shadow">
+            <div className="relative bg-[#2F4555] rounded-lg shadow">
               <div className="p-6 text-center">
-                <h3 className="mb-5 text-lg font-normal text-gray-500">
-                  Mise à jour réussi !
+                <h3 className="mb-5 text-lg font-normal text-white">
+                  Update Completed!
                 </h3>
                 <button
                   data-modal-hide="popup-modal"
@@ -79,7 +99,7 @@ function ProfilUser() {
                     navigate("/user/profile", { replace: true });
                   }}
                 >
-                  Retour vers le Profil
+                  Comeback to profile
                 </button>
               </div>
             </div>
@@ -92,17 +112,42 @@ function ProfilUser() {
           <h2 className="-mt-20 mb-20 text-5xl text-white text-center font-extrabold uppercase">
             Profile
           </h2>
-          <div className="h-fit w-fit">
-            <img
-              className={
-                pictureProfile !== null
-                  ? "rounded-full border-4 h-[200px] w-[200px]"
-                  : "text-transparent animate-spin rounded-full border-4 h-[200px] w-[200px] bg-gradient-to-r  from-[#AF28EE]"
-              }
-              src={pictureProfile !== null ? pictureProfile.url : ""}
-              alt="Anime API"
-            />
+          <div className="h-fit w-fit flex items-end">
+            {showInput ? (
+              <img
+                className={
+                  userPicture !== "no picture"
+                    ? "rounded-full border-4 h-[200px] w-[200px]"
+                    : "text-transparent  rounded-full border-4 h-[200px] w-[200px]"
+                }
+                src={
+                  userPicture !== "no picture" ? userPicture : defaultPicture
+                }
+                alt="Anime API"
+              />
+            ) : (
+              <img
+                className={
+                  data.picture !== "no picture"
+                    ? "rounded-full border-4 h-[200px] w-[200px]"
+                    : "text-transparent rounded-full border-4 h-[200px] w-[200px]"
+                }
+                src={
+                  data.picture !== "no picture" ? data.picture : defaultPicture
+                }
+                alt="Anime API"
+              />
+            )}
+            {showInput ? (
+              <div className="-ml-32">
+                <ButtonInterface
+                  name="change image"
+                  method={() => setUserPicture(getAnimeImg())}
+                />
+              </div>
+            ) : null}
           </div>
+
           <div className="mt-6 grid grid-cols-12 gap-6 grow pl-10">
             <div className="col-span-12 sm:col-span-6">
               <label

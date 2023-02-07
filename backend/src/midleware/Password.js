@@ -24,7 +24,7 @@ const verifyPassword = (req, res) => {
     .verify(req.user.password, req.body.password)
     .then((isVerified) => {
       if (isVerified) {
-        const payload = { sub: req.user.id, role: req.user.admin };
+        const payload = { sub: req.user.id };
         const token = jwt.sign(payload, process.env.JWT_SECRET, {
           expiresIn: "1h",
         });
@@ -34,9 +34,13 @@ const verifyPassword = (req, res) => {
           .cookie(process.env.NAME_COOKIE, `Bearer ${token}`, {
             expires: new Date(Date.now() + 10 * 3600000), // cookie will be removed after 2 hours
           })
-          .json({ admin: req.user.admin, id: req.user.id });
+          .json({
+            id: req.user.id,
+            picture: req.user.picture,
+            pseudo: req.user.pseudo,
+          });
       } else {
-        res.status(401).send("Réfléchis encore !");
+        res.status(401).send("think Again !");
       }
     })
     .catch((err) => {

@@ -7,12 +7,14 @@ const userSchema = Joi.object({
   password: Joi.string().max(254).required(),
   serviceId: Joi.number().integer().allow(null),
   pseudo: Joi.string().max(45).required(),
+  picture: Joi.string().max(254).required(),
 });
 
 const validateUser = (req, res, next) => {
-  const { lastname, firstname, email, password, serviceId, pseudo } = req.body;
+  const { lastname, firstname, email, password, serviceId, pseudo, picture } =
+    req.body;
   const { error } = userSchema.validate(
-    { lastname, firstname, email, password, serviceId, pseudo },
+    { lastname, firstname, email, password, serviceId, pseudo, picture },
     { abortEarly: false }
   );
 
