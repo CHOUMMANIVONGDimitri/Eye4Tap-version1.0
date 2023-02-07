@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import api from "../../services/api";
 
 export async function LoadUser(id) {

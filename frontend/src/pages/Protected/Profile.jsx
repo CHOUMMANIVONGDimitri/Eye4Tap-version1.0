@@ -17,8 +17,7 @@ function ProfilUser() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showInput, setShowInput] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
-  const [anime, setAnime] = useState("<div>test</div>");
-  const { user } = useAuth();
+  const { user, pictureProfile } = useAuth();
 
   useEffect(() => {
     const getUserData = async () => {
@@ -58,22 +57,6 @@ function ProfilUser() {
     setShowInput(!showInput);
   };
 
-  const getAnimeImg = () => {
-    const token = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith(import.meta.env.VITE_NAME_COOKIE))
-      ?.split("=Bearer%20")[1];
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
-    axios
-      .get(`${import.meta.env.VITE_BACKEND_URL}/anime`, config)
-      .then((res) => {
-        setAnime(res.data);
-      })
-      .catch((err) => console.error(err));
-  };
-
   return isLoaded ? (
     <div className="wrapper">
       {isSubmit && (
@@ -106,22 +89,19 @@ function ProfilUser() {
 
       <div className="w-full h-screen border-5 flex justify-center items-center">
         <div className="max-w-7xl py-6 px-4 sm:p-6 lg:pb-8 bg-[#2F4555] border-4 border-[#AF28EE]  shadow sm:rounded-lg ">
-          <h2 className="-mt-20 mb-20 text-5xl text-white text-center font-extrabold">
-            Profil
+          <h2 className="-mt-20 mb-20 text-5xl text-white text-center font-extrabold uppercase">
+            Profile
           </h2>
           <div className="h-fit w-fit">
             <img
-              className="rounded-full border-4"
-              src={
-                anime.status === "success"
-                  ? anime.stuff[0].image
-                  : "https://via.placeholder.com/300/09f/fff.png"
+              className={
+                pictureProfile !== null
+                  ? "rounded-full border-4 h-[200px] w-[200px]"
+                  : "text-transparent animate-spin rounded-full border-4 h-[200px] w-[200px] bg-gradient-to-r  from-[#AF28EE]"
               }
+              src={pictureProfile !== null ? pictureProfile.url : ""}
               alt="Anime API"
-              width="200"
-              heigth="200"
             />
-            <ButtonInterface name="Change" method={() => getAnimeImg()} />
           </div>
           <div className="mt-6 grid grid-cols-12 gap-6 grow pl-10">
             <div className="col-span-12 sm:col-span-6">

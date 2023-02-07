@@ -3,10 +3,10 @@ const axios = require("axios");
 const browseAnime = (req, res) => {
   const options = {
     method: "GET",
-    url: "https://any-anime.p.rapidapi.com/anime",
+    url: process.env.API_URL,
     headers: {
-      "X-RapidAPI-Key": "04324e4ce8msh3aee1e303c40e63p1444d5jsn36dcd3dfd86d",
-      "X-RapidAPI-Host": "any-anime.p.rapidapi.com",
+      "X-RapidAPI-Key": process.env.API_KEY,
+      "X-RapidAPI-Host": process.env.API_HOST,
     },
   };
 

@@ -1,5 +1,6 @@
 import { createContext, useContext, useMemo, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import PropTypes from "prop-types";
 // eslint-disable-next-line import/no-cycle
 import { LoadUser } from "./functions/ReconnectApi";
@@ -11,11 +12,13 @@ export const useAuth = () => {
 
 export function AuthProvider({ children }) {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [pictureProfile, setPictureProfile] = useState({ url: null });
   const [user, setUser] = useState({
     admin: null,
     email: null,
     firstname: null,
     lastname: null,
+    pseudo: null,
     id: null,
   });
   const navigate = useNavigate();
@@ -33,6 +36,22 @@ export function AuthProvider({ children }) {
       const payload = JSON.parse(
         window.atob(token.match(/(?<=\.)(.*?)(?=\.)/g))
       );
+
+      const getAnimeImg = (tokenCookie) => {
+        const config = {
+          headers: { Authorization: `Bearer ${tokenCookie}` },
+        };
+        axios
+          .get(`${import.meta.env.VITE_BACKEND_URL}/anime`, config)
+          .then((res) => {
+            setPictureProfile({ url: res.data.stuff[0].image });
+          })
+          .catch((err) => console.error(err));
+      };
+
+      getAnimeImg(token);
+
+      // call api
       LoadUser(payload.sub).then((returnuser) => {
         if (returnuser.status === 401) {
           setUser({
@@ -40,6 +59,7 @@ export function AuthProvider({ children }) {
             email: null,
             firstname: null,
             lastname: null,
+            pseudo: null,
             id: null,
           });
           navigate("/", { replace: true });
@@ -49,6 +69,7 @@ export function AuthProvider({ children }) {
             email: returnuser.email,
             firstname: returnuser.firstname,
             lastname: returnuser.lastname,
+            pseudo: returnuser.pseudo,
             id: returnuser.id,
           });
         }
@@ -75,10 +96,11 @@ export function AuthProvider({ children }) {
   const value = useMemo(
     () => ({
       user,
+      pictureProfile,
       login,
       logout,
     }),
-    [user]
+    [user, pictureProfile]
   );
 
   return (

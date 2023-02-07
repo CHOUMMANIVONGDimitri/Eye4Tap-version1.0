@@ -1,8 +1,12 @@
 ## Concept
 
-Ce template est conçu pour servir de base à tous les projets (P2/P3) suivants la stack React-Node-MySQL telle qu'enseignée à la Wild Code School. Il est préconfiguré avec un ensemble d'outils qui aideront les élèves à produire un code correspondant mieux aux standards du monde du travail et plus facile à maintenir, tout en restant simple à utiliser.
+Ce template est conçu à partir du template de la WildCodeSchool pour servir de base à tous les projets (P2/P3) suivants la stack React-Node-MySQL. Il est préconfiguré avec un ensemble d'outils qui aideront les élèves à produire un code correspondant mieux aux standards du monde du travail et plus facile à maintenir, tout en restant simple à utiliser. C'est un custom créer par Bouman.
 
 ## Installation & Utilisation
+
+### API on Rapid Api
+
+(Optionnel) Any Anime API est utilisé pour la photo de profile, il n'est pas necessaire de l'utiliser pour le fonctionnement de l'application (lien de l'api : https://rapidapi.com/Kurizu/api/any-anime/ )
 
 ### Pour commencer un projet
 

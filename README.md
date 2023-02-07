@@ -1,6 +1,6 @@
 ## Concept
 
-This template is meant to serve as a foundation for every P2/P3 following the React-Express-MySQL stack, as learned in Wild Code School.
+This template is meant to serve as a foundation for every P2/P3 following the React-Express-MySQL stack, as learned in Wild Code School. This template is a custom version modify by Bouman.
 It's pre-configured with a set of tools which'll help students produce industry-quality and easier-to-maintain code, while staying as simple as possible to use.
 
 ## Setup & Use
@@ -11,6 +11,10 @@ It's pre-configured with a set of tools which'll help students produce industry-
 - Clone this repo, enter it
 - Run command `npm run setup`
 - _NB: To launch the backend server, you'll need an environment file with database credentials. You'll find a template one in `backend/.env.sample`_
+
+### API on Rapid Api
+
+(Optionnal) Any Anime API it use for profile picture, it's not necessary to get this API. (link to the API : https://rapidapi.com/Kurizu/api/any-anime/ )
 
 ### Available Commands
 
