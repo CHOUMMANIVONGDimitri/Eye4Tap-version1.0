@@ -17,9 +17,9 @@ router.post("/readfs", scriptfs.readallfiles);
 router.post("/login", usersControllers.login, verifyPassword);
 router.post("/register", validateUser, hashPassword, usersControllers.add);
 
-router.get("/anime", animeControllers.browseAnime);
-
 router.use(verifyToken);
+// route api any anime
+router.get("/anime", animeControllers.browseAnime);
 // ranking crud
 router.get("/ranking", rankingControllers.browseRank);
 router.post("/ranking/:id", rankingControllers.addRank);

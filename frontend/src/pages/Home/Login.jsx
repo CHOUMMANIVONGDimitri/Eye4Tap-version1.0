@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { React, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ButtonInterface from "@components/ButtonInterFace";

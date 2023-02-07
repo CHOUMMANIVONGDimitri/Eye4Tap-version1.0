@@ -8,7 +8,7 @@ import { useAuth } from "../../contexts/useAuth";
 function AppBar({ menu }) {
   const [showMenuMobile, setShowMenuMobile] = useState(false);
   // CONST //
-  const { user, logout } = useAuth();
+  const { user, logout, pictureProfile } = useAuth();
   const navigate = useNavigate();
 
   // RETURN //
@@ -18,14 +18,28 @@ function AppBar({ menu }) {
       className="z-20 fixed top-0 left-0 right-0 border-b-4 border-white h-16 flex flex-row bg-[#2F4555] text-white text-lg font-light"
     >
       <div className="flex flex-row justify-between items-center w-full overflow-none">
-        {/* <!-- Navbar Logo --> */}
+        {/* <!-- Navbar Title --> */}
         <div className="flex justify-center items-center gap-4">
           <h1 className="text-2xl ml-4 px-2 font-bold border-2 rounded-md">
             EYE4TAP
           </h1>
           <p>version alpha 1.0</p>
         </div>
-
+        {/* <!-- Navbar Pseudo --> */}
+        {user.pseudo && pictureProfile !== null && (
+          <div className="flex h-fit justify-center items-center gap-4">
+            <img
+              className={
+                pictureProfile !== null
+                  ? "rounded-full border-2 h-14 w-14"
+                  : "text-transparent animate-spin rounded-full border-2 h-14 w-14 bg-gradient-to-r  from-[#AF28EE]"
+              }
+              src={pictureProfile !== null ? pictureProfile.url : ""}
+              alt="Anime API"
+            />
+            <h2 className="text-xl font-extrabold uppercase">{user.pseudo}</h2>
+          </div>
+        )}
         {/* <!-- Navbar Links --> */}
         <ul id="menu" className="hidden md:flex flex-row mr-10 mt-20">
           {menu?.map((page) => (
@@ -61,7 +75,7 @@ function AppBar({ menu }) {
             type="button"
             className={
               !showMenuMobile
-                ? "z-10 md:hidden rounded-xl mt-6 gap-8 bg-[#AF28EE] border-4 h-20 w-20 rotate-45 active:bg-[#2F4555]"
+                ? "z-10 md:hidden rounded-xl mt-20 gap-8 bg-[#AF28EE] border-4 h-20 w-20 rotate-45 active:bg-[#2F4555]"
                 : "z-10 md:hidden rounded-xl mt-6 gap-8 bg-[#2F4555] border-4 h-20 w-20 rotate-45 active:bg-[#AF28EE] "
             }
           >
