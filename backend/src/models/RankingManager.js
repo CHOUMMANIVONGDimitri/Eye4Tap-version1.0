@@ -6,10 +6,11 @@ class UsersManager extends AbstractManager {
   }
 
   getAllScore() {
-    return this.connection.query(`select score.value_score, users.pseudo
+    return this.connection
+      .query(`select score.value_score, users.pseudo, users.picture
       from ${this.table}
       join users
-      on score.id_user = users.id order by score.value_score desc`);
+      on score.id_user = users.id order by score.value_score desc limit 100`);
   }
 
   insertScore(score, idUser) {

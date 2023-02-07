@@ -5,10 +5,12 @@ import { useNavigate } from "react-router-dom";
 import ButtonInterface from "@components/ButtonInterFace";
 import { useAuth } from "../../contexts/useAuth";
 
+import defaultPicture from "../../assets/picture/default-profile-picture.png";
+
 function AppBar({ menu }) {
   const [showMenuMobile, setShowMenuMobile] = useState(false);
   // CONST //
-  const { user, logout, pictureProfile } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   // RETURN //
@@ -26,15 +28,17 @@ function AppBar({ menu }) {
           <p>version alpha 1.0</p>
         </div>
         {/* <!-- Navbar Pseudo --> */}
-        {user.pseudo && pictureProfile !== null && (
+        {user.email === null || user === "user" ? null : (
           <div className="flex h-fit justify-center items-center gap-4">
             <img
               className={
-                pictureProfile !== null
+                user.picture !== "no picture"
                   ? "rounded-full border-2 h-14 w-14"
-                  : "text-transparent animate-spin rounded-full border-2 h-14 w-14 bg-gradient-to-r  from-[#AF28EE]"
+                  : "text-transparent rounded-full border-2 h-14 w-14"
               }
-              src={pictureProfile !== null ? pictureProfile.url : ""}
+              src={
+                user.picture !== "no picture" ? user.picture : defaultPicture
+              }
               alt="Anime API"
             />
             <h2 className="text-xl font-extrabold uppercase">{user.pseudo}</h2>

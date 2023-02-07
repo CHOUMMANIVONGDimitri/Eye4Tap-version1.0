@@ -1,6 +1,5 @@
 import { createContext, useContext, useMemo, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import PropTypes from "prop-types";
 // eslint-disable-next-line import/no-cycle
 import { LoadUser } from "./functions/ReconnectApi";
@@ -12,14 +11,13 @@ export const useAuth = () => {
 
 export function AuthProvider({ children }) {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [pictureProfile, setPictureProfile] = useState({ url: null });
   const [user, setUser] = useState({
-    admin: null,
     email: null,
     firstname: null,
     lastname: null,
     pseudo: null,
     id: null,
+    picture: null,
   });
   const navigate = useNavigate();
 
@@ -37,40 +35,26 @@ export function AuthProvider({ children }) {
         window.atob(token.match(/(?<=\.)(.*?)(?=\.)/g))
       );
 
-      const getAnimeImg = (tokenCookie) => {
-        const config = {
-          headers: { Authorization: `Bearer ${tokenCookie}` },
-        };
-        axios
-          .get(`${import.meta.env.VITE_BACKEND_URL}/anime`, config)
-          .then((res) => {
-            setPictureProfile({ url: res.data.stuff[0].image });
-          })
-          .catch((err) => console.error(err));
-      };
-
-      getAnimeImg(token);
-
       // call api
       LoadUser(payload.sub).then((returnuser) => {
         if (returnuser.status === 401) {
           setUser({
-            admin: null,
             email: null,
             firstname: null,
             lastname: null,
             pseudo: null,
             id: null,
+            picture: null,
           });
           navigate("/", { replace: true });
         } else {
           setUser({
-            admin: returnuser.admin,
             email: returnuser.email,
             firstname: returnuser.firstname,
             lastname: returnuser.lastname,
             pseudo: returnuser.pseudo,
             id: returnuser.id,
+            picture: returnuser.picture,
           });
         }
         setIsLoaded(true);
@@ -96,11 +80,10 @@ export function AuthProvider({ children }) {
   const value = useMemo(
     () => ({
       user,
-      pictureProfile,
       login,
       logout,
     }),
-    [user, pictureProfile]
+    [user]
   );
 
   return (

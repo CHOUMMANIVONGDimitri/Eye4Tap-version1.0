@@ -1,3 +1,4 @@
+/* eslint-disable no-return-await */
 function api() {
   let token;
   const checktoken = () => {
@@ -20,7 +21,6 @@ function api() {
       },
       credentials: "include",
     });
-    // eslint-disable-next-line no-return-await
     return await res.json();
   };
 

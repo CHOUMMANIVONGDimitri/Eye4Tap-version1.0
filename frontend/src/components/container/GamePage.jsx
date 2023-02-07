@@ -64,9 +64,9 @@ function Eye4Tap({
             </div>
             {/* title glitch */}
             <div className="mb-20">
-              <div className="wrapper">
-                <h1 className="glitch">{title}</h1>
-              </div>
+              <h1 className="text-6xl text-white uppercase font-extrabold mx-2 mt-[-1.5rem]">
+                {title}
+              </h1>
             </div>
             {/* right menu */}
             <div>
@@ -232,44 +232,44 @@ function GamePage({ title }) {
     }
   }
 
+  const areaSurface = document.getElementById("area");
+
+  let widthTotal = 0;
+  let heightTotal = 0;
+
+  if (areaSurface !== null) {
+    widthTotal = areaSurface.clientWidth;
+    heightTotal = areaSurface.clientHeight;
+  }
+
+  const areaData = [
+    {
+      x1: 0,
+      x2: widthTotal / 2,
+      y1: 0,
+      y2: heightTotal / 2,
+    },
+    {
+      x1: widthTotal / 2,
+      x2: widthTotal,
+      y1: 0,
+      y2: heightTotal / 2,
+    },
+    {
+      x1: 0,
+      x2: widthTotal / 2,
+      y1: heightTotal / 2,
+      y2: heightTotal,
+    },
+    {
+      x1: widthTotal / 2,
+      x2: widthTotal,
+      y1: heightTotal / 2,
+      y2: heightTotal,
+    },
+  ];
+
   useEffect(() => {
-    const areaSurface = document.getElementById("area");
-
-    let widthTotal = 0;
-    let heightTotal = 0;
-
-    if (areaSurface !== null) {
-      widthTotal = areaSurface.clientWidth;
-      heightTotal = areaSurface.clientHeight;
-    }
-
-    const areaData = [
-      {
-        x1: 0, //
-        x2: widthTotal / 2,
-        y1: 0,
-        y2: heightTotal / 2,
-      },
-      {
-        x1: widthTotal / 2,
-        x2: widthTotal,
-        y1: 0,
-        y2: heightTotal / 2,
-      },
-      {
-        x1: 0,
-        x2: widthTotal / 2,
-        y1: heightTotal / 2,
-        y2: heightTotal,
-      },
-      {
-        x1: widthTotal / 2,
-        x2: widthTotal,
-        y1: heightTotal / 2,
-        y2: heightTotal,
-      },
-    ];
-
     checkEyePosition(
       areaSurface,
       positionX,
@@ -284,7 +284,7 @@ function GamePage({ title }) {
   useEffect(() => {
     const timerId = setInterval(() => {
       setSelectArea(Math.floor(Math.random() * 4));
-    }, 1500);
+    }, 2000);
     return () => clearInterval(timerId);
   }, []);
 

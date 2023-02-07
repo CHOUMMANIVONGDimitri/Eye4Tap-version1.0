@@ -16,6 +16,7 @@ router.use(express.json());
 router.post("/readfs", scriptfs.readallfiles);
 router.post("/login", usersControllers.login, verifyPassword);
 router.post("/register", validateUser, hashPassword, usersControllers.add);
+// test update
 
 router.use(verifyToken);
 // route api any anime
