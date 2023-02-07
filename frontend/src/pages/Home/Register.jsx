@@ -18,12 +18,14 @@ function LoginPage() {
       const firstname = e.target.firstname.value;
       const lastname = e.target.lastname.value;
       const pseudo = e.target.pseudo.value;
+      const picture = "no picture";
       const body = {
         firstname,
         lastname,
         email,
         password,
         pseudo,
+        picture,
       };
       const sendForm = async () => {
         const resRegister = await api.apipostmysql(
