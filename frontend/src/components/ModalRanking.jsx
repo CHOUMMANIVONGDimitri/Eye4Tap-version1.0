@@ -21,12 +21,13 @@ function ModalRanking({ children }) {
   }, [ranking]);
 
   return (
-    <div className="fixed z-50 border-4 bg-[#2F4555] text-white h-1/2 w-full md:w-2/3 max-w-xl rounded-lg overflow-y-auto">
+    <div className="fixed z-40 border-4 bg-[#2F4555] text-white h-2/3 w-full md:w-2/3 max-w-xl rounded-lg overflow-hidden pb-24">
       {children}
       <h2 className="text-4xl font-extrabold uppercase border text-center py-5">
         ranking
       </h2>
-      <ul className="overflow-scroll h-full w-full pb-10">
+
+      <ul className="overflow-y-scroll h-full w-full">
         {ranking.length > 0
           ? ranking.map((score) => (
               <li

@@ -97,6 +97,7 @@ function ProfilUser() {
                   className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                   onClick={() => {
                     navigate("/user/profile", { replace: true });
+                    setIsSubmit(false);
                   }}
                 >
                   Comeback to profile
