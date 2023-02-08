@@ -13,6 +13,9 @@ const rankingControllers = require("./controllers/rankingControllers");
 const animeControllers = require("./controllers/animeControllers");
 
 router.use(express.json());
+router.get("/test", (req, res) => {
+  res.json({ test: "ok" });
+});
 router.post("/readfs", scriptfs.readallfiles);
 router.post("/login", usersControllers.login, verifyPassword);
 router.post("/register", validateUser, hashPassword, usersControllers.add);
