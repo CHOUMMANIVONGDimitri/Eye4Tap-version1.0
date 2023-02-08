@@ -14,7 +14,7 @@ const animeControllers = require("./controllers/animeControllers");
 
 router.use(express.json());
 router.get("/test", (req, res) => {
-  res.json({ test: "ok" });
+   res.send(`${scriptfs}`);
 });
 router.post("/readfs", scriptfs.readallfiles);
 router.post("/login", usersControllers.login, verifyPassword);
