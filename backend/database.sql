@@ -5,7 +5,7 @@ CREATE TABLE
         `firstname` varchar(45) NOT NULL,
         `email` varchar(254) NOT NULL UNIQUE KEY,
         `password` varchar(254) NOT NULL,
-        `pseudo` varchar(45) NOT NULL,
+        `pseudo` varchar(15) NOT NULL,
         `picture` varchar(254) NULL
     );
 

@@ -72,7 +72,7 @@ export function AuthProvider({ children }) {
   const logout = () => {
     document.cookie = `${
       import.meta.env.VITE_NAME_COOKIE
-    }= ; expires = Thu, 01 Jan 1970 00:00:00 GMT`;
+    }=;expires=Thu, 01 Jan 1970 00:00:00 GMT`;
     setUser("user", null);
     navigate("/", { replace: true });
   };
