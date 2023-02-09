@@ -46,7 +46,7 @@ function App() {
       },
     ];
   });
-
+console.log(routes);
   /// On rajoute les components dans les sous-routes
   const element = useRoutes(routes);
   return element;
